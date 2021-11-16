@@ -7,6 +7,8 @@ export default class MyDocument extends Document {
         return(
             <Html lang="en">
                 <Head>
+                    <meta name="author" content="Navar Kartalian" />
+                    <meta name="description" content="Frontend Mentor Space tourism web site" />
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link href="https://fonts.googleapis.com/css2?family=Barlow&family=Barlow+Condensed&family=Bellefair&display=swap" rel="stylesheet" />
                     <link rel="shortcut icon" href="/favicon.png" type="image/png" />

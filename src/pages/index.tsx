@@ -1,10 +1,14 @@
-import { Heading, Text, Flex, Box, Button } from '@chakra-ui/react';
+import { Heading, Text, Flex, Box, Button, ButtonProps, BoxProps} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Head from 'next/head';
 
 import { Header } from '../components/Header';
 
 export default function Home() {
+  const MotionButton = motion<ButtonProps>(Button);
+  const MotionBox = motion<BoxProps>(Box);
+
   return (
     <>
     <Head>
@@ -35,12 +39,15 @@ export default function Home() {
           align={{'base': 'center', 'md': 'flex-end'}}
           direction={{'base': 'column', 'md': 'row'}}
           justify={{'base': 'space-around', 'md': 'space-between'}} 
+          as='main'
         >
-          <Box 
+          <MotionBox 
             maxW='450px' 
             w='100%' 
             mt={{'base': '48px', 'lg': '0'}} 
             textAlign={{'base': 'center', 'md': 'unset'}}
+            initial={{opacity: 0, y: -100}}
+            animate={{ opacity: 1, transition: {duration: 1.0, delay: 0.4}, y: 0}}
           >
             <Text 
               fontSize={{'base': '16', 'sm': '28'}} 
@@ -71,10 +78,10 @@ export default function Home() {
               genuinely go to outer space and not hover kind of on the edge of it. Well sit back, 
               and relax because we’ll give you a truly out of this world experience!
             </Text>
-          </Box>
+          </MotionBox>
 
           <Link href='/destination' passHref>
-            <Button 
+            <MotionButton 
               fontSize={{'base': '20', 'sm': '32'}} 
               w={{'base': '150px', 'sm': '242px', 'md': '274px'}}
               h={{'base': '150px', 'sm': '242px', 'md': '274px'}}
@@ -88,9 +95,11 @@ export default function Home() {
                 boxShadow: '0 0 0 80px rgba(255, 255, 255, 0.1)'
               }}
               _active={{ transform: "scale(1.08)" }}
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 1.0, delay: 1.4}}}
             >
               EXPLORE
-            </Button>
+            </MotionButton>
           </Link>
         </Flex>
       </Flex>

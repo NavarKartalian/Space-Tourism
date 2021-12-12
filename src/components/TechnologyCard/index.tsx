@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Button, useBreakpointValue } from '@chakra-ui/react';
+import { 
+    Heading, 
+    Text, 
+    Flex, 
+    Box, 
+    Image, 
+    Button, 
+    useBreakpointValue,
+    TextProps,
+    ImageProps  
+  } from '@chakra-ui/react';
+  import { motion } from 'framer-motion';
 
 import Data from '../../../data.json';
 
@@ -26,6 +37,9 @@ export function TechnologyCard() {
     setData(results);
   }, [technology]);
 
+  const MotionText = motion<TextProps>(Text);
+  const MotionImage = motion<ImageProps>(Image);
+
   return (
     <>
       {data.map(res => (
@@ -35,11 +49,11 @@ export function TechnologyCard() {
           maxW={{'base': '100%', 'md': '1275px'}} 
           h='100%' 
           minH='640px' 
-          ml={{'base': 'auto', 'xl': ''}} 
-          mx={{ 'base': '', 'xl': 'auto' }}
+          mx={{ 'base': 'auto' }}
           justify='space-between' 
           align='center'
           direction={{'base': 'column', 'md': 'row'}}
+          as='main'
         >
           <Box 
             w='100%' 
@@ -60,11 +74,13 @@ export function TechnologyCard() {
             </Heading>
 
             {isMobile && 
-              <Image 
+              <MotionImage 
                 alignSelf='flex-end' 
                 src={res.images.landscape} 
                 alt={res.name} 
                 mb={{'base': '34px', 'sm': '56px', 'md': 'unset'}}
+                initial={{opacity: 0}}
+                animate={{ opacity: 1, transition: {duration: 0.8}}}
               />
             }
 
@@ -145,27 +161,40 @@ export function TechnologyCard() {
                     THE TERMINOLOGY…
                   </Text>
 
-                  <Text 
+                  <MotionText 
                     fontSize={{'base': '24', 'sm': '40', 'md': '56'}} 
                     fontFamily='Bellefair' 
                     mb='5px'
+                    initial={{opacity: 0, x: -50}}
+                    animate={{ opacity: 1, transition: {duration: 0.6, delay: 0.2}, x: 0}}
                   >
                     {res.name.toUpperCase()}
-                  </Text>
+                  </MotionText>
 
-                  <Text 
+                  <MotionText 
                     fontSize={{'base': '15', 'sm': '16', 'md': '19'}} 
                     lineHeight='32px' 
                     color='#D0D6F9'
+                    initial={{opacity: 0, x: -50}}
+                    animate={{ opacity: 1, transition: {duration: 0.6, delay: 0.6}, x: 0}}
                   >
                     {res.description}
-                  </Text>
+                  </MotionText>
                 </Box>
               </Flex>
             </Flex>
           </Box>
 
-          {!isMobile && <Image alignSelf='flex-end' src={res.images.portrait} alt={res.name} />}
+          {!isMobile && 
+            <MotionImage 
+              alignSelf='flex-end' 
+              src={res.images.portrait} 
+              alt={res.name} 
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 0.8}}}
+              borderRadius={8}
+            />
+          }
         </Flex>
       ))}
     </>

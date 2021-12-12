@@ -1,5 +1,16 @@
 import { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Link, useBreakpointValue } from '@chakra-ui/react';
+import { 
+    Heading, 
+    Text, 
+    Flex, 
+    Box, 
+    Image, 
+    Link, 
+    useBreakpointValue,
+    TextProps,
+    ImageProps 
+  } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 
 import Data from '../../../data.json';
 
@@ -26,6 +37,9 @@ export function CrewCard() {
     setData(results);
   }, [crew]);
 
+  const MotionText = motion<TextProps>(Text);
+  const MotionImage = motion<ImageProps>(Image);
+
   return (
     <>
       {data.map(res => (
@@ -40,6 +54,7 @@ export function CrewCard() {
           direction={{'base': 'column', 'md': 'row'}}
           px={{'base': '8', 'lg': '0'}}
           mb={{'base': '8', 'sm': 'unset' }}
+          as='main'
         >
           <Box 
             w='100%'
@@ -60,25 +75,38 @@ export function CrewCard() {
               MEET YOUR CREW
             </Heading>
 
-            {isMobile && <Image src={res.images.svg} alt={res.name} mb='8' borderBottom='1px solid #383B4B' />}
+            {isMobile && 
+              <MotionImage 
+                src={res.images.svg} 
+                alt={res.name} 
+                mb='8' 
+                borderBottom='1px solid #383B4B'
+                initial={{opacity: 0}}
+                animate={{ opacity: 1, transition: {duration: 0.8}}} 
+              />
+            }
 
-            <Text 
+            <MotionText 
               fontSize={{'base': '16', 'sm': '24', "md": '32'}}
               fontFamily='Bellefair'
               color='rgba(255, 255, 255, 0.5)'
               textAlign={{'base': 'center', 'md': 'unset'}} 
+              initial={{opacity: 0, x: -50}}
+              animate={{ opacity: 1, transition: {duration: 0.6, delay: 0.2}, x: 0}}
             >
               {res.role.toUpperCase()}
-            </Text>
+            </MotionText>
 
-            <Text 
+            <MotionText 
               fontSize={{'base': '24', 'sm': '40', "md": '56'}} 
               fontFamily='Bellefair' 
               mb='15px'
               textAlign={{'base': 'center', 'md': 'unset'}}
+              initial={{opacity: 0, x: -50}}
+              animate={{ opacity: 1, transition: {duration: 0.6, delay: 0.6}, x: 0}}
             >
               {res.name.toUpperCase()}
-            </Text>
+            </MotionText>
 
             <Flex 
               direction='column' 
@@ -86,15 +114,17 @@ export function CrewCard() {
               justify={{'base': 'space-around', 'md': 'space-between'}} 
               align={{'base': 'center', 'md': 'unset'}}
             >
-              <Text 
+              <MotionText 
                 fontSize={{'base': '15', 'sm': '16', "md": '18'}} 
                 lineHeight='32px' 
                 color='#D0D6F9' 
                 maxW='444px'
                 textAlign={{'base': 'center', 'md': 'unset'}}
+                initial={{opacity: 0, x: -50}}
+                animate={{ opacity: 1, transition: {duration: 0.6, delay: 1.0}, x: 0}}
               >
                 {res.bio}
-              </Text>
+              </MotionText>
               
               <Flex w='100%' maxW={{'base': '88px', 'md': '132px'}} justify='space-between'>
                 <Link 
@@ -148,7 +178,15 @@ export function CrewCard() {
             </Flex>
           </Box>
 
-          {!isMobile && <Image src={res.images.svg} alt={res.name} mt={{'base': '16'}} />}
+          {!isMobile && 
+            <MotionImage 
+              src={res.images.svg} 
+              alt={res.name} 
+              mt={{'base': '16'}} 
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 0.8}}}
+            />
+          }
         </Flex>
       ))}
     </>

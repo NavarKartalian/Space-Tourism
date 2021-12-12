@@ -31,6 +31,7 @@ export function Header() {
       mt={{'base': '4', 'sm': '0', 'lg': '10'}} 
       justify='space-between' 
       align='center'
+      as='header'
     >
       <Image alt='Logo' src='/assets/shared/logo.svg' w='48px' h='48px' />
       

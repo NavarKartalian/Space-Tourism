@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
-import { Heading, Text, Flex, Box, Image, Divider, Link } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { 
+    Heading, 
+    Text, 
+    Flex, 
+    Box, 
+    Image, 
+    Divider, 
+    Link, 
+    ImageProps, 
+    HeadingProps,
+    TextProps,
+    FlexProps
+  } from '@chakra-ui/react';
 
 import Data from '../../../data.json';
 
@@ -25,6 +38,11 @@ export function DestinationCard() {
     setData(results);
   }, [destination]);
 
+  const MotionImage = motion<ImageProps>(Image);
+  const MotionHeading = motion<HeadingProps>(Heading);
+  const MotionText = motion<TextProps>(Text);
+  const MotionFlex = motion<FlexProps>(Flex);
+
   return (
     <>
       {data.map(res => (
@@ -39,11 +57,12 @@ export function DestinationCard() {
           align={{'base': 'center', 'md': 'flex-end'}}
           direction={{'base': 'column', 'md': 'row'}}
           px={{'base': '8', 'lg': '0'}} 
+          as='main'
         >
           <Box 
             w='100%' 
-            mt='8' 
-            mb='8' 
+            mt='16' 
+            mb='2' 
             maxW={{'base': 'unset', 'md': '508px'}} 
             textAlign={{'base': 'center', 'sm': 'unset'}}
           >
@@ -58,13 +77,16 @@ export function DestinationCard() {
               PICK YOUR DESTINATION
             </Heading>
 
-            <Image 
-              w={{'base': '170px', 'sm': '300px', 'md': 'unset'}}
-              h={{'base': '170px', 'sm': '300px', 'md': 'unset'}}
+            <MotionImage 
+              w={{'base': '170px', 'sm': '300px', 'md': '445px'}}
+              h={{'base': '170px', 'sm': '300px', 'md': '445px'}}
               src={res.images.svg} 
               alt={`${res.name} image`} 
               ml={{'base': 'unset', 'md': 'auto'}} 
               mx={{'base': 'auto', 'md': 'unset'}} 
+              mb={{'base': 8, 'md': 'unset'}}
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 1.4}}}
             />
           </Box>
 
@@ -121,28 +143,34 @@ export function DestinationCard() {
               </Link>
             </Flex>
 
-            <Heading 
+            <MotionHeading 
               fontSize={{'base': '56', 'sm': '80', 'md': '100'}} 
               fontWeight='400' 
               mb='14px'
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 1.0, delay: 0.2}}}
             >
               {res.name.toUpperCase()}
-            </Heading>
-            <Text 
+            </MotionHeading>
+            <MotionText 
               fontSize={{'base': '15', 'sm': '16', 'md': '18'}} 
               color='#D0D6F9' 
               mb='54px'
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 1.0, delay: 0.6}}}
             >
               {res.description}
-            </Text>
+            </MotionText>
 
             <Divider mb='28px' />
 
-            <Flex 
+            <MotionFlex 
               justify={{'base': 'space-around', 'lg': 'unset'}} 
               direction={{'base': 'column', 'sm': 'row'}} 
               mb='8' 
               align='center'
+              initial={{opacity: 0}}
+              animate={{ opacity: 1, transition: {duration: 1.0, delay: 1.2}}}
             >
               <Box w={{'lg': '50%'}} mb={{'base': '8', 'sm': 'unset'}}>
                 <Text 
@@ -185,7 +213,7 @@ export function DestinationCard() {
                   {res.travel.toUpperCase()}
                 </Text>
               </Box>
-            </Flex>
+            </MotionFlex>
           </Box>
         </Flex>
       ))}
